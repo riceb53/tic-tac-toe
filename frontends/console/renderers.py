@@ -14,7 +14,7 @@ class ConsoleRenderer(Renderer):
         else:
             print_solid(game_state.grid.cells)
             if game_state.tie:
-                print("No one wins this time \n{neutral_face}")
+                print("No one wins this time")
         
 
 def clear_screen() -> None:
