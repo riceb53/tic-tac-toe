@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import re
 from functools import cached_property
 
-from tic_tac_toe.logic.exceptions import InvalidMove
+from tic_tac_toe.logic.exceptions import InvalidMove, UnknownGameScore
 from tic_tac_toe.logic.validators import validate_grid, validate_game_state
 
 WINNING_PATTERNS = (
@@ -120,16 +120,13 @@ class GameState:
                 Grid(self.grid.cells[:index] + self.current_mark + self.grid.cells[index + 1:]), self.starting_mark
             ),
         )
-    # def make_move_to(self, index: int) -> Move:
-    #     if self.grid.cells[index] != " ":
-    #         raise InvalidMove("Cell is not empty")
-    #     return Move(
-    #         mark=self.current_mark,
-    #         cell_index=index,
-    #         before_state=self,
-    #         after_state=GameState(
-    #             Grid(self.grid.cells[:index] + self.current_mark + self.grid.cells[index + 1:]
-    #             ),
-    #             self.starting_mark,
-    #         ),
-    #     )
+
+    def evaluate_score(self, mark: Mark) -> int:
+        if self.game_over:
+            if self.tie:
+                return 0
+            elif self.winner is mark: 
+                return 1
+            else: 
+                return -1
+        raise UnknownGameScore("Game is not over yet")    

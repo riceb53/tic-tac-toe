@@ -7,7 +7,7 @@ from tic_tac_toe.logic.models import Mark, GameState, Move
 
 class Player(metaclass=abc.ABCMeta):
     def __init__(self, mark: Mark) -> None: 
-        self.mark = Mark
+        self.mark = mark
 
     
     def make_move(self, game_state: GameState) -> GameState:
@@ -23,7 +23,7 @@ class Player(metaclass=abc.ABCMeta):
         """return current player's move in given game state"""
 
 class ComputerPlayer(Player, metaclass=abc.ABCMeta):
-    def __init__(self, mark: Mark, delay_seconds: float = 0.25) -> None:
+    def __init__(self, mark: Mark, delay_seconds: float = 0.75) -> None:
         super().__init__(mark)
         self.delay_seconds = delay_seconds
     
